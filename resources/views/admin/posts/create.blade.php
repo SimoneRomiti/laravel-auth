@@ -3,20 +3,31 @@
 @section('content')
 	<div class="container">
 		<h2>Crea un nuovo post</h2>
+
+		@if ($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+
 		<form action="{{ route('admin.posts.store') }}" method="post">
 			@csrf
 			@method('POST')
 			<div class="form-group">
 				<label for="title">TITOLO</label>
-				<input type="text" class="form-control" id="title" name="title">
+				<input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
 			</div>
 			<div class="form-group">
 				<label for="text">TESTO</label>
-				<textarea class="form-control" name="text" id="text" cols="30" rows="10"></textarea>
+				<textarea class="form-control" name="text" id="text" cols="30" rows="10">{{ old('text') }}</textarea>
 			</div>
 			<div class="form-group">
 				<label for="image">IMMAGINE</label>
-				<textarea class="form-control" name="image" id="image" cols="30" rows="10"></textarea>
+				<textarea class="form-control" name="image" id="image" cols="30" rows="10">{{ old('image') }}</textarea>
 			</div>
 			<button type="submit" class="btn btn-primary">CREA</button>
 		</form>

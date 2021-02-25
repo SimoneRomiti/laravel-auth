@@ -11,6 +11,7 @@
 					<th>Titolo</th>
 					<th>Testo</th>
 					<th>Autore</th>
+					<th colspan="1"></th>
 				</tr>
 			</thead>
 			<tbody>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', 'GuestController@index');
+Route::get('/', 'GuestController@index')->name('index');
 
 Auth::routes();
 
