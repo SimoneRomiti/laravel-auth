@@ -4,7 +4,7 @@
 	<div class="container">
 		<h2>Dettaglio {{ $post->title }}</h2>
 		<div class="card" style="width: 18rem;">
-			<img src="{{ $post->image }}" class="card-img-top" alt="...">
+			<img src="{{ asset('storage/'.$post->image) }}" class="card-img-top" alt="...">
 			<div class="card-body">
 				<h3 class="card-title">{{ $post->title }}</h3>
 				<p class="card-text">{{ $post->text }}</p>

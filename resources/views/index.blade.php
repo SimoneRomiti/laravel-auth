@@ -7,7 +7,7 @@
 		<div class="d-flex">
 			@foreach ($posts as $post)
 				<div class="card" style="width: calc(100% / 4 - 30px); margin: 15px;">
-					<img src="{{ $post->image }}" class="card-img-top" alt="...">
+					<img src="{{ asset('storage/'.$post->image) }}" class="card-img-top" alt="...">
 					<div class="card-body" style="display: flex; flex-direction:column; justify-content: space-between">
 						<h2>{{ $post->title }}</h2>
 						<p>{{ substr($post->text, 0, 200). '...' }}</p>
@@ -17,7 +17,7 @@
 				</div>
 			@endforeach
 		</div>
-
+			<a class="btn btn-primary" href="{{ route('admin.posts.index') }}">SOLO I MIEI POST</a>
 	</div>
 		
 @endsection

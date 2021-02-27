@@ -3,6 +3,11 @@
 @section('content')
 
 	<div class="container">
+		@if (session('message'))
+			<div class="alert alert-success">
+					{{ session('message') }}
+			</div>
+		@endif
 		<h1>Tutti i miei post</h1>
 		<table class="table table-striped table-bordered">
 			<thead>
@@ -27,6 +32,7 @@
 			</tbody>
 		</table>
 		<a class="btn btn-primary" href="{{ route('admin.posts.create') }}">Crea un nuovo post</a>
+		<a class="btn btn-secondary" href="{{ route('index') }}">TUTTI I POST</a>
 	</div>
 		
 @endsection

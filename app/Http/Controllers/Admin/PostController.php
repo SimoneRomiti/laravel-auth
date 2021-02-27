@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -50,11 +51,12 @@ class PostController extends Controller
         $post = new Post();
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['title'], '-');
+        $data['image'] = Storage::disk('public')->put('images', $data['image']);
     
         $post->fill($data);
         $post->save();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('message', 'Post creato correttamente');
     }
 
     /**
