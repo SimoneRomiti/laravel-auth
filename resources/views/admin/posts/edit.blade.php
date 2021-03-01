@@ -14,20 +14,20 @@
 			</div>
 		@endif
 
-		<form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
+		<form action="{{ route('admin.posts.update', $post->slug) }}" method="post" enctype="multipart/form-data">
 			@csrf
-			@method('POST')
+			@method('PUT')
 			<div class="form-group">
 				<label for="title">TITOLO</label>
-				<input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+				<input type="text" class="form-control" id="title" name="title" value="{{ $post->title }}">
 			</div>
 			<div class="form-group">
 				<label for="text">TESTO</label>
-				<textarea class="form-control" name="text" id="text" cols="30" rows="10">{{ old('text') }}</textarea>
+				<textarea class="form-control" name="text" id="text" cols="30" rows="10">{{ $post->text }}</textarea>
 			</div>
 			<div class="form-group">
 				<label for="image">IMMAGINE</label>
-				<input type="file" accept="image/*" class="form-control" name="image" id="image" value="{{ old('image') }}">
+				<input type="file" accept="image/*" class="form-control" name="image" id="image" value="{{ $post->image }}">
 			</div>
 			<button type="submit" class="btn btn-primary my-3">CREA</button>
 		</form>

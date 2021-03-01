@@ -9,7 +9,7 @@
 				<h3 class="card-title">{{ $post->title }}</h3>
 				<p class="card-text">{{ $post->text }}</p>
 				<p class="card-text">- <strong>{{ $post->user->name }}</strong></p>
-				<a href="{{ route('admin.posts.index') }}" class="btn btn-primary">Indietro</a>
+				<a href="{{ route('index') }}" class="btn btn-primary">Torna a tutti i post</a>
 			</div>
 		</div>
 	</div>

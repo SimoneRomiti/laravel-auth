@@ -2,11 +2,14 @@
 
 @section('content')
 	<div class="container">
-		<h1>Tutti i post</h1>
+		<div class="clearfix my-3">
+			<h1 class="float-left">Tutti i post</h1>
+			<a class="btn btn-primary float-right" href="{{ route('admin.posts.index') }}">VISUALIZZA SOLO I MIEI POST</a>
+		</div>
 
 		<div class="d-flex">
 			@foreach ($posts as $post)
-				<div class="card" style="width: calc(100% / 4 - 30px); margin: 15px;">
+				<div class="card card-index">
 					<img src="{{ asset('storage/'.$post->image) }}" class="card-img-top" alt="...">
 					<div class="card-body" style="display: flex; flex-direction:column; justify-content: space-between">
 						<h2>{{ $post->title }}</h2>
@@ -17,7 +20,6 @@
 				</div>
 			@endforeach
 		</div>
-			<a class="btn btn-primary" href="{{ route('admin.posts.index') }}">SOLO I MIEI POST</a>
 	</div>
 		
 @endsection

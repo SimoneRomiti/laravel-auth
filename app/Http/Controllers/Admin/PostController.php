@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
+
 class PostController extends Controller
 {
     /**
@@ -19,7 +22,7 @@ class PostController extends Controller
     private $validation = [
         'title' => 'required',
         'text' => 'required',
-        'image' => 'required'
+        'image' => 'mimes:jpeg,jpg,png,gif|required'
     ];
 
     public function index()
@@ -56,6 +59,9 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
+        Mail::to(Auth::user()->email)
+            ->send(new SendMail($post));
+
         return redirect()->route('admin.posts.index')->with('message', 'Post creato correttamente');
     }
 
@@ -77,9 +83,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->first();
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -89,9 +96,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $data = $request->all();
+        $post = Post::where('slug', $slug)->first();
+        $data['slug'] = Str::slug($data['title']);
+        $data['image'] = Storage::disk('public')->put('images', $data['image']);
+        
+        $post->update($data);    
+        
+        return redirect()->route('admin.posts.index')
+            ->with('message', 'Il post "' .$post->title . '" è stato modificato correttamente');
     }
 
     /**
@@ -102,6 +117,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('message', 'Il post "'.$post->title.'" è stato eliminato correttamente');
     }
 }
